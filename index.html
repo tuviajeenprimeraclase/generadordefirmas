@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Firmas - Tu Viaje en Primera Clase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fuentes de Google similares al modelo (Plus Jakarta Sans / Poppins / Montserrat / Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; 
+            background-color: #f1f5f9; 
+            color: #1e293b;
+        }
+        .brand-header {
+            background: linear-gradient(135deg, #005b9f 0%, #0077c8 100%);
+        }
+        .preview-container {
+            min-height: 270px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e2e8f0;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 16px 16px;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .preview-card {
+            background: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .toast-show { opacity: 1 !important; transform: translate(-50%, 0) !important; }
+        .counter-ok { color: #16a34a; }
+        .counter-warn { color: #d97706; }
+        .counter-danger { color: #dc2626; font-weight: 700; }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="pb-16">
+
+    <!-- Header Corporativo -->
+    <header class="brand-header text-white py-6 px-4 shadow-md mb-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-xl bg-white/15 border border-white/25 flex items-center justify-center text-white text-xl shadow-inner">
+                    <i class="fas fa-plane-departure"></i>
+                </div>
+                <div>
+                    <span class="text-[11px] uppercase tracking-widest text-sky-200 font-semibold block">Modelo Oficial 2026</span>
+                    <h1 class="text-xl md:text-2xl font-extrabold tracking-tight">
+                        Tu Viaje en Primera Clase
+                    </h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-lg border border-white/15 text-xs">
+                <i class="fas fa-check-circle text-sky-200 text-base"></i>
+                <div>
+                    <p class="font-semibold text-white">Diseño Corporativo Estándar</p>
+                    <p class="text-sky-100">Compatible con Gmail, Outlook y Apple Mail</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+            
+            <!-- PANEL IZQUIERDO: CONFIGURACIÓN (6 columnas) -->
+            <div class="lg:col-span-6 space-y-5">
+                
+                <!-- 1. Datos del Ejecutivo y Tipografía -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80">
+                    <h2 class="text-sm font-bold mb-4 flex items-center gap-2 text-slate-800 border-b pb-2.5 uppercase tracking-wider">
+                        <span class="w-6 h-6 rounded-md bg-sky-50 text-[#0077c8] flex items-center justify-center text-xs">
+                            <i class="fas fa-user-tie"></i>
+                        </span>
+                        1. Datos del Ejecutivo & Tipografía
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Nombre Completo *</label>
+                            <input type="text" id="inputName" class="w-full p-2 text-sm border border-slate-300 rounded-lg outline-none focus:border-[#0077c8] transition" value="Marianela Ravelo">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Cargo *</label>
+                            <input type="text" id="inputJob" class="w-full p-2 text-sm border border-slate-300 rounded-lg outline-none focus:border-[#0077c8] transition" value="CEO Tu viaje en Primera Clase">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Correo Electrónico *</label>
+                            <input type="email" id="inputEmail" class="w-full p-2 text-sm border border-slate-300 rounded-lg outline-none focus:border-[#0077c8] transition" value="info@tuviajeenprimeraclase.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">
+                                <i class="fab fa-google text-[#0077c8] mr-1"></i> Fuente Google (Similar al modelo)
+                            </label>
+                            <select id="selectFont" class="w-full p-2 text-sm border border-slate-300 rounded-lg bg-white outline-none focus:border-[#0077c8]">
+                                <option value="'Plus Jakarta Sans', Arial, sans-serif" selected>Plus Jakarta Sans (Idéntica al modelo)</option>
+                                <option value="'Poppins', Arial, sans-serif">Poppins (Geométrica Moderna)</option>
+                                <option value="'Montserrat', Arial, sans-serif">Montserrat (Corporativa Limpia)</option>
+                                <option value="'Inter', Arial, sans-serif">Inter (Estándar Digital)</option>
+                                <option value="Arial, Helvetica, sans-serif">Arial / Helvética (Universal)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Teléfonos y Dirección (Exacto al modelo) -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80">
+                    <h2 class="text-sm font-bold mb-4 flex items-center gap-2 text-slate-800 border-b pb-2.5 uppercase tracking-wider">
+                        <span class="w-6 h-6 rounded-md bg-sky-50 text-[#0077c8] flex items-center justify-center text-xs">
+                            <i class="fas fa-phone-alt"></i>
+                        </span>
+                        2. Teléfonos, WhatsApp y Dirección
+                    </h2>
+
+                    <div class="space-y-3.5">
+                        <!-- Fila de Celulares (Icono móvil azul) -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Teléfonos Móviles (Fila superior con icono celular)</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="relative">
+                                    <span class="absolute left-2.5 top-2 text-[#0077c8] text-xs"><i class="fas fa-mobile-alt"></i></span>
+                                    <input type="text" id="inputMobile1" placeholder="Móvil 1 (Ej. +58 4143304342)" class="w-full pl-7 pr-2 py-1.5 text-sm border border-slate-300 rounded-lg outline-none focus:border-[#0077c8]" value="+58 4143304342">
+                                </div>
+                                <div class="relative">
+                                    <span class="absolute left-2.5 top-2 text-[#0077c8] text-xs"><i class="fas fa-mobile-alt"></i></span>
+                                    <input type="text" id="inputMobile2" placeholder="Móvil 2 (Opcional)" class="w-full pl-7 pr-2 py-1.5 text-sm border border-slate-300 rounded-lg outline-none focus:border-[#0077c8]" value="+58 4265132638">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dirección -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Dirección Física (Icono ubicación azul)</label>
+                            <div class="relative">
+                                <span class="absolute left-2.5 top-2 text-[#0077c8] text-xs"><i class="fas fa-map-marker-alt"></i></span>
+                                <input type="text" id="inputAddress" placeholder="Dirección de la oficina" class="w-full pl-7 pr-2 py-1.5 text-sm border border-slate-300 rounded-lg outline-none focus:border-[#0077c8]" value="Calle Teresa Carreño, Quinta Sara Elena, Planta Baja, Caracas, Venezuela.">
+                            </div>
+                        </div>
+
+                        <!-- Fila inferior: WhatsApp (Verde) + Teléfono Fijo/Oficina (Azul) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">
+                                    WhatsApp <span class="text-[10px] text-emerald-600 font-normal">(Link directo a WhatsApp Web)</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-2.5 top-2 text-emerald-500 text-xs"><i class="fab fa-whatsapp"></i></span>
+                                    <input type="text" id="inputWhatsapp" placeholder="+58 4143304342" class="w-full pl-7 pr-2 py-1.5 text-sm border border-slate-300 rounded-lg outline-none focus:border-emerald-500" value="+58 4143304342">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Teléfono Oficina / Directo</label>
+                                <div class="relative">
+                                    <span class="absolute left-2.5 top-2 text-[#0077c8] text-xs"><i class="fas fa-phone-volume"></i></span>
+                                    <input type="text" id="inputOfficePhone" placeholder="+58 4143304342" class="w-full pl-7 pr-2 py-1.5 text-sm border border-slate-300 rounded-lg outline-none focus:border-[#0077c8]" value="+58 4143304342">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Columna Izquierda: Logo Fijo, Web y Redes Sociales Activas -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/80">
+                    <h2 class="text-sm font-bold mb-4 flex items-center gap-2 text-slate-800 border-b pb-2.5 uppercase tracking-wider">
+                        <span class="w-6 h-6 rounded-md bg-sky-50 text-[#0077c8] flex items-center justify-center text-xs">
+                            <i class="fas fa-share-nodes"></i>
+                        </span>
+                        3. Logo Fijo, Web y Redes Sociales
+                    </h2>
+
+                    <!-- Logo Fijo -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 mb-4">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                                <i class="fas fa-lock text-[#0077c8]"></i> Logo Corporativo Fijo
+                            </span>
+                            <button type="button" id="btnUnlockLogo" onclick="toggleLogoLock()" class="text-[11px] font-semibold text-[#0077c8] hover:underline">
+                                <i class="fas fa-edit"></i> Cambiar URL
+                            </button>
+                        </div>
+                        <input type="text" id="inputLogoUrl" readonly class="w-full p-1.5 text-xs bg-slate-200/70 text-slate-600 border border-slate-300 rounded-lg outline-none" value="https://placehold.co/240x85/ffffff/0077c8?text=Tu+Viaje+en%0APrimera+Clase">
+                    </div>
+
+                    <!-- Web y Handle (@usuario) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Sitio Web (Debajo del logo)</label>
+                            <input type="text" id="inputWeb" class="w-full p-2 text-xs border border-slate-300 rounded-lg outline-none focus:border-[#0077c8]" value="www.tuviajeenprimeraclase.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Usuario / Handle junto a iconos</label>
+                            <input type="text" id="inputSocialHandle" placeholder="@tuviajeenprimeraclase" class="w-full p-2 text-xs border border-slate-300 rounded-lg outline-none focus:border-[#0077c8]" value="@tuviajeenprimeraclase">
+                        </div>
+                    </div>
+
+                    <!-- Inputs de Redes Sociales (Solo se muestran si tienen link) -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="text-xs font-bold text-slate-700">Enlaces de Redes Sociales</label>
+                            <span class="text-[11px] text-slate-500">Solo se muestran los iconos que tengan link</span>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <!-- Facebook -->
+                            <div class="flex items-center gap-2 border border-slate-200 p-1.5 rounded-lg bg-slate-50/50 focus-within:border-[#0077c8] focus-within:bg-white transition">
+                                <span class="w-7 h-7 rounded-md bg-blue-50 text-[#1877F2] flex items-center justify-center text-sm shrink-0"><i class="fab fa-facebook-f"></i></span>
+                                <input type="text" id="socialFb" placeholder="https://facebook.com/..." class="text-xs w-full bg-transparent outline-none" value="https://facebook.com/tuviajeenprimeraclase">
+                                <span id="badgeFb" class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-700">Activo</span>
+                            </div>
+
+                            <!-- Instagram -->
+                            <div class="flex items-center gap-2 border border-slate-200 p-1.5 rounded-lg bg-slate-50/50 focus-within:border-[#0077c8] focus-within:bg-white transition">
+                                <span class="w-7 h-7 rounded-md bg-pink-50 text-pink-600 flex items-center justify-center text-sm shrink-0"><i class="fab fa-instagram"></i></span>
+                                <input type="text" id="socialIg" placeholder="https://instagram.com/..." class="text-xs w-full bg-transparent outline-none" value="https://instagram.com/tuviajeenprimeraclase">
+                                <span id="badgeIg" class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-700">Activo</span>
+                            </div>
+
+                            <!-- TikTok -->
+                            <div class="flex items-center gap-2 border border-slate-200 p-1.5 rounded-lg bg-slate-50/50 focus-within:border-[#0077c8] focus-within:bg-white transition">
+                                <span class="w-7 h-7 rounded-md bg-slate-200 text-slate-900 flex items-center justify-center text-sm shrink-0"><i class="fab fa-tiktok"></i></span>
+                                <input type="text" id="socialTk" placeholder="https://tiktok.com/@..." class="text-xs w-full bg-transparent outline-none" value="https://tiktok.com/@tuviajeenprimeraclase">
+                                <span id="badgeTk" class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-700">Activo</span>
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div class="flex items-center gap-2 border border-slate-200 p-1.5 rounded-lg bg-slate-50/50 focus-within:border-[#0077c8] focus-within:bg-white transition">
+                                <span class="w-7 h-7 rounded-md bg-sky-50 text-[#0A66C2] flex items-center justify-center text-sm shrink-0"><i class="fab fa-linkedin-in"></i></span>
+                                <input type="text" id="socialIn" placeholder="https://linkedin.com/company/..." class="text-xs w-full bg-transparent outline-none" value="https://linkedin.com/company/tuviajeenprimeraclase">
+                                <span id="badgeIn" class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-700">Activo</span>
+                            </div>
+
+                            <!-- YouTube -->
+                            <div class="flex items-center gap-2 border border-slate-200 p-1.5 rounded-lg bg-slate-50/50 focus-within:border-[#0077c8] focus-within:bg-white transition">
+                                <span class="w-7 h-7 rounded-md bg-red-50 text-[#FF0000] flex items-center justify-center text-sm shrink-0"><i class="fab fa-youtube"></i></span>
+                                <input type="text" id="socialYt" placeholder="https://youtube.com/@..." class="text-xs w-full bg-transparent outline-none" value="https://youtube.com/@tuviajeenprimeraclase">
+                                <span id="badgeYt" class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-700">Activo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL DERECHO: VISTA PREVIA EXACTA Y COPIADO (6 columnas) -->
+            <div class="lg:col-span-6">
+                <div class="sticky top-6 space-y-4">
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200/80">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#0077c8] animate-pulse"></span>
+                                Vista Previa del Modelo Oficial
+                            </span>
+                            <span class="text-xs font-mono bg-slate-100 px-2.5 py-1 rounded-md" id="charCounter">0 / 10,000</span>
+                        </div>
+
+                        <!-- Barra de límite de caracteres de Gmail -->
+                        <div class="w-full h-1.5 bg-slate-100 rounded-full mb-4 overflow-hidden">
+                            <div id="charBar" class="h-full rounded-full transition-all duration-300" style="width:0%;background:#16a34a;"></div>
+                        </div>
+
+                        <!-- Lienzo de la Firma -->
+                        <div id="captureArea" class="preview-container border border-slate-200 mb-5">
+                            <div class="preview-card">
+                                <div id="signaturePreview"></div>
+                            </div>
+                        </div>
+
+                        <div id="sizeAlert" class="hidden bg-red-50 border border-red-300 text-red-700 text-xs p-3 rounded-lg mb-4">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span id="sizeAlertText"></span>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="space-y-2.5">
+                            <button id="copyBtn" class="w-full brand-header hover:opacity-95 text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-lg cursor-pointer disabled:opacity-50">
+                                <i class="fas fa-copy"></i> Copiar Firma para Gmail / Outlook
+                            </button>
+                            
+                            <button id="copyHtmlBtn" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition text-xs cursor-pointer">
+                                <i class="fas fa-code"></i> Copiar Código HTML
+                            </button>
+                        </div>
+
+                        <!-- Instrucciones -->
+                        <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-500 space-y-1.5">
+                            <p class="font-semibold text-slate-700"><i class="fas fa-info-circle text-[#0077c8] mr-1"></i> Instrucciones de uso:</p>
+                            <ul class="list-disc list-inside space-y-1 text-[11px] pl-1">
+                                <li>Cada icono social enlaza directamente a la URL ingresada en el panel.</li>
+                                <li>Si dejas vacío el campo de una red social, su icono se ocultará automáticamente.</li>
+                                <li>El número de <strong>WhatsApp</strong> abre directamente el chat en WhatsApp Web (<code class="bg-slate-100 px-1 rounded">wa.me</code>).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificaciones Toast -->
+    <div id="toast" class="fixed bottom-8 left-1/2 bg-slate-900 text-white px-6 py-3.5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none transform -translate-x-1/2 translate-y-5 z-50 flex items-center gap-2 text-sm font-medium border border-sky-400/40">
+        <i class="fas fa-check-circle text-sky-400"></i> <span id="toastMsg">¡Firma copiada lista para pegar!</span>
+    </div>
+    <div id="toastError" class="fixed bottom-8 left-1/2 bg-red-600 text-white px-6 py-3.5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none transform -translate-x-1/2 translate-y-5 z-50 flex items-center gap-2 text-sm font-medium">
+        <i class="fas fa-exclamation-circle"></i> <span id="errorMsg">Error al copiar</span>
+    </div>
+
+    <script>
+        // Iconos en los colores exactos del modelo (Azul corporativo #0077c8, WhatsApp verde, redes sociales oficiales)
+        const ICONS = {
+            email: 'https://img.icons8.com/ios/50/0077c8/new-post--v1.png',
+            mobile: 'https://img.icons8.com/ios/50/0077c8/iphone14-pro.png',
+            location: 'https://img.icons8.com/ios/50/0077c8/marker--v1.png',
+            whatsapp: 'https://img.icons8.com/ios/50/25D366/whatsapp--v1.png',
+            phone: 'https://img.icons8.com/ios/50/0077c8/phone-disconnected.png',
+            fb: 'https://img.icons8.com/color/48/facebook-new.png',
+            ig: 'https://img.icons8.com/ios-glyphs/48/000000/instagram-new.png',
+            tk: 'https://img.icons8.com/color/48/tiktok--v1.png',
+            li: 'https://img.icons8.com/color/48/linkedin.png',
+            yt: 'https://img.icons8.com/color/48/youtube-play.png'
+        };
+
+        function esc(t) {
+            if (!t) return '';
+            const d = document.createElement('div');
+            d.textContent = t;
+            return d.innerHTML;
+        }
+
+        // Bloquear / Desbloquear edición del Logo Fijo
+        function toggleLogoLock() {
+            const input = document.getElementById('inputLogoUrl');
+            const btn = document.getElementById('btnUnlockLogo');
+            if (input.hasAttribute('readonly')) {
+                input.removeAttribute('readonly');
+                input.classList.remove('bg-slate-200/70', 'text-slate-600');
+                input.classList.add('bg-white', 'text-slate-900', 'border-[#0077c8]');
+                input.focus();
+                btn.innerHTML = '<i class="fas fa-lock"></i> Fijar URL';
+            } else {
+                input.setAttribute('readonly', true);
+                input.classList.add('bg-slate-200/70', 'text-slate-600');
+                input.classList.remove('bg-white', 'text-slate-900', 'border-[#0077c8]');
+                btn.innerHTML = '<i class="fas fa-edit"></i> Cambiar URL';
+            }
+        }
+
+        // Actualizar indicador visual (Activo / Oculto) en el panel y generar celdas HTML
+        function getSocialsRowHTML(fontFamily) {
+            const socialsConfig = [
+                { inputId: 'socialFb', badgeId: 'badgeFb', icon: ICONS.fb, name: 'Facebook' },
+                { inputId: 'socialIg', badgeId: 'badgeIg', icon: ICONS.ig, name: 'Instagram' },
+                { inputId: 'socialTk', badgeId: 'badgeTk', icon: ICONS.tk, name: 'TikTok' },
+                { inputId: 'socialIn', badgeId: 'badgeIn', icon: ICONS.li, name: 'LinkedIn' },
+                { inputId: 'socialYt', badgeId: 'badgeYt', icon: ICONS.yt, name: 'YouTube' }
+            ];
+
+            let iconsHTML = '';
+            let hasAnySocial = false;
+
+            socialsConfig.forEach(item => {
+                const rawVal = document.getElementById(item.inputId).value.trim();
+                const badge = document.getElementById(item.badgeId);
+
+                if (rawVal) {
+                    hasAnySocial = true;
+                    badge.textContent = 'Activo';
+                    badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-700';
+
+                    const href = rawVal.startsWith('http://') || rawVal.startsWith('https://') 
+                        ? rawVal 
+                        : 'https://' + rawVal;
+
+                    iconsHTML += '<td style="padding-right:6px;vertical-align:middle;">'
+                        + '<a href="' + esc(href) + '" target="_blank" title="' + item.name + '" style="text-decoration:none;display:inline-block;line-height:0;">'
+                        + '<img src="' + item.icon + '" width="18" height="18" style="border:0;display:block;" alt="' + item.name + '">'
+                        + '</a></td>';
+                } else {
+                    badge.textContent = 'Oculto';
+                    badge.className = 'text-[10px] font-medium px-2 py-0.5 rounded bg-slate-200 text-slate-500';
+                }
+            });
+
+            const handle = document.getElementById('inputSocialHandle').value.trim();
+            if (!hasAnySocial && !handle) return '';
+
+            let handleCell = '';
+            if (handle) {
+                handleCell = '<td style="padding-left:2px;vertical-align:middle;font-family:' + fontFamily + ';font-size:11.5px;color:#111827;font-weight:500;white-space:nowrap;">'
+                    + esc(handle)
+                    + '</td>';
+            }
+
+            return '<table cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;"><tr>'
+                + iconsHTML
+                + handleCell
+                + '</tr></table>';
+        }
+
+        // Generador Principal (Estructura exacta del modelo oficial)
+        function updateSignature() {
+            const name = document.getElementById('inputName').value.trim() || 'Nombre del Ejecutivo';
+            const job = document.getElementById('inputJob').value.trim() || 'Cargo';
+            const email = document.getElementById('inputEmail').value.trim();
+            const mobile1 = document.getElementById('inputMobile1').value.trim();
+            const mobile2 = document.getElementById('inputMobile2').value.trim();
+            const address = document.getElementById('inputAddress').value.trim();
+            const whatsapp = document.getElementById('inputWhatsapp').value.trim();
+            const officePhone = document.getElementById('inputOfficePhone').value.trim();
+            const web = document.getElementById('inputWeb').value.trim();
+            const logoUrl = document.getElementById('inputLogoUrl').value.trim();
+            const fontFamily = document.getElementById('selectFont').value;
+
+            const brandBlue = '#0077c8';
+            const dividerBlue = '#7ab8e6';
+
+            // 1. Bloque Izquierdo (Logo + Web + Redes Sociales)
+            let leftColHTML = '<table cellpadding="0" cellspacing="0" border="0" width="100%">';
+            
+            if (logoUrl) {
+                leftColHTML += '<tr><td align="center" style="padding-bottom:10px;">'
+                    + '<img src="' + esc(logoUrl) + '" width="220" style="display:block;border:0;max-width:220px;height:auto;" alt="Tu Viaje en Primera Clase">'
+                    + '</td></tr>';
+            }
+
+            if (web) {
+                const cleanWebHref = web.startsWith('http') ? web : 'https://' + web;
+                leftColHTML += '<tr><td align="center" style="padding-bottom:8px;">'
+                    + '<a href="' + esc(cleanWebHref) + '" target="_blank" style="font-family:' + fontFamily + ';font-size:13.5px;font-weight:700;color:#000000;text-decoration:none;letter-spacing:-0.2px;">'
+                    + esc(web)
+                    + '</a></td></tr>';
+            }
+
+            const socialsRow = getSocialsRowHTML(fontFamily);
+            if (socialsRow) {
+                leftColHTML += '<tr><td align="center">' + socialsRow + '</td></tr>';
+            }
+            leftColHTML += '</table>';
+
+            // 2. Bloque Derecho (Nombre, Cargo, Email, Móviles, Dirección, WhatsApp + Fijo)
+            let rightRows = '';
+
+            // Nombre y Cargo
+            rightRows += '<tr><td colspan="2" style="padding-bottom:8px;">'
+                + '<div style="font-family:' + fontFamily + ';font-size:21px;font-weight:800;color:#000000;line-height:1.15;letter-spacing:-0.3px;">' + esc(name) + '</div>'
+                + '<div style="font-family:' + fontFamily + ';font-size:13.5px;font-weight:500;color:#111827;margin-top:2px;">' + esc(job) + '</div>'
+                + '</td></tr>';
+
+            // Correo Electrónico
+            if (email) {
+                rightRows += '<tr>'
+                    + '<td style="width:22px;padding-bottom:6px;vertical-align:middle;"><img src="' + ICONS.email + '" width="15" height="15" style="display:block;border:0;"></td>'
+                    + '<td style="padding-bottom:6px;font-family:' + fontFamily + ';font-size:13px;color:#000000;">'
+                    + '<a href="mailto:' + esc(email) + '" style="color:#000000;text-decoration:none;">' + esc(email) + '</a>'
+                    + '</td></tr>';
+            }
+
+            // Fila de Teléfonos Móviles (Móvil 1 y Móvil 2 en la misma línea)
+            if (mobile1 || mobile2) {
+                let mobilesText = '';
+                if (mobile1) {
+                    mobilesText += '<a href="tel:' + mobile1.replace(/[^0-9+]/g, '') + '" style="color:#000000;text-decoration:none;">' + esc(mobile1) + '</a>';
+                }
+                if (mobile1 && mobile2) {
+                    mobilesText += '&nbsp;&nbsp;&nbsp;&nbsp;';
+                }
+                if (mobile2) {
+                    mobilesText += '<a href="tel:' + mobile2.replace(/[^0-9+]/g, '') + '" style="color:#000000;text-decoration:none;">' + esc(mobile2) + '</a>';
+                }
+
+                rightRows += '<tr>'
+                    + '<td style="width:22px;padding-bottom:6px;vertical-align:middle;"><img src="' + ICONS.mobile + '" width="15" height="15" style="display:block;border:0;"></td>'
+                    + '<td style="padding-bottom:6px;font-family:' + fontFamily + ';font-size:13px;color:#000000;">' + mobilesText + '</td>'
+                    + '</tr>';
+            }
+
+            // Dirección
+            if (address) {
+                rightRows += '<tr>'
+                    + '<td style="width:22px;padding-bottom:7px;vertical-align:top;padding-top:2px;"><img src="' + ICONS.location + '" width="15" height="15" style="display:block;border:0;"></td>'
+                    + '<td style="padding-bottom:7px;font-family:' + fontFamily + ';font-size:12px;color:#111827;line-height:1.3;max-width:310px;">' + esc(address) + '</td>'
+                    + '</tr>';
+            }
+
+            // Fila Inferior: WhatsApp (Verde + link wa.me) y Teléfono Oficina (Azul + link tel:)
+            if (whatsapp || officePhone) {
+                let bottomPhonesHTML = '<table cellpadding="0" cellspacing="0" border="0"><tr>';
+                
+                if (whatsapp) {
+                    const waLink = 'https://wa.me/' + whatsapp.replace(/[^0-9]/g, '');
+                    bottomPhonesHTML += '<td style="padding-right:6px;vertical-align:middle;"><img src="' + ICONS.whatsapp + '" width="16" height="16" style="display:block;border:0;"></td>'
+                        + '<td style="padding-right:18px;vertical-align:middle;font-family:' + fontFamily + ';font-size:13px;color:#000000;">'
+                        + '<a href="' + waLink + '" target="_blank" style="color:#000000;text-decoration:none;">' + esc(whatsapp) + '</a>'
+                        + '</td>';
+                }
+
+                if (officePhone) {
+                    const telLink = 'tel:' + officePhone.replace(/[^0-9+]/g, '');
+                    bottomPhonesHTML += '<td style="padding-right:6px;vertical-align:middle;"><img src="' + ICONS.phone + '" width="15" height="15" style="display:block;border:0;"></td>'
+                        + '<td style="vertical-align:middle;font-family:' + fontFamily + ';font-size:13px;color:#000000;">'
+                        + '<a href="' + telLink + '" style="color:#000000;text-decoration:none;">' + esc(officePhone) + '</a>'
+                        + '</td>';
+                }
+
+                bottomPhonesHTML += '</tr></table>';
+
+                rightRows += '<tr><td colspan="2" style="padding-top:1px;">' + bottomPhonesHTML + '</td></tr>';
+            }
+
+            // Ensamblaje Final de la Tabla Principal + Barra Inferior Azul Sólida
+            const fullSignatureHTML = '<table cellpadding="0" cellspacing="0" border="0" style="font-family:' + fontFamily + ';background-color:#ffffff;width:620px;max-width:620px;border-collapse:collapse;">'
+                + '<tr>'
+                + '<td style="padding:18px 20px 16px 20px;">'
+                + '<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>'
+                // Columna Izquierda
+                + '<td width="245" style="width:245px;vertical-align:middle;padding-right:18px;text-align:center;">'
+                + leftColHTML
+                + '</td>'
+                // Línea divisoria vertical celeste
+                + '<td width="1" style="width:1px;background-color:' + dividerBlue + ';"></td>'
+                // Columna Derecha
+                + '<td style="vertical-align:middle;padding-left:20px;">'
+                + '<table cellpadding="0" cellspacing="0" border="0" width="100%">' + rightRows + '</table>'
+                + '</td>'
+                + '</tr></table>'
+                + '</td>'
+                + '</tr>'
+                // Barra sólida inferior azul corporativo
+                + '<tr>'
+                + '<td style="height:8px;background-color:' + brandBlue + ';font-size:1px;line-height:1px;">&nbsp;</td>'
+                + '</tr>'
+                + '</table>';
+
+            document.getElementById('signaturePreview').innerHTML = fullSignatureHTML;
+            updateCharCounter(fullSignatureHTML.length);
+        }
+
+        // Contador de caracteres (Límite Gmail: 10,000)
+        function updateCharCounter(len) {
+            const el = document.getElementById('charCounter');
+            const bar = document.getElementById('charBar');
+            const alert = document.getElementById('sizeAlert');
+            const btn = document.getElementById('copyBtn');
+            const pct = Math.min((len / 10000) * 100, 100);
+            
+            el.textContent = len.toLocaleString('es') + ' / 10,000 caracteres';
+            bar.style.width = pct + '%';
+
+            if (len <= 7500) {
+                el.className = 'text-xs font-mono bg-emerald-50 px-2.5 py-1 rounded-md counter-ok';
+                bar.style.background = '#16a34a';
+                alert.classList.add('hidden');
+                btn.disabled = false;
+            } else if (len <= 9500) {
+                el.className = 'text-xs font-mono bg-amber-50 px-2.5 py-1 rounded-md counter-warn';
+                bar.style.background = '#d97706';
+                alert.classList.add('hidden');
+                btn.disabled = false;
+            } else {
+                el.className = 'text-xs font-mono bg-red-50 px-2.5 py-1 rounded-md counter-danger';
+                bar.style.background = '#dc2626';
+                alert.classList.remove('hidden');
+                document.getElementById('sizeAlertText').textContent = 'La firma supera los 10,000 caracteres permitidos por Gmail.';
+                btn.disabled = true;
+            }
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            t.classList.add('toast-show');
+            setTimeout(() => t.classList.remove('toast-show'), 3200);
+        }
+
+        function showToastError(msg) {
+            const t = document.getElementById('toastError');
+            document.getElementById('errorMsg').textContent = msg;
+            t.classList.add('toast-show');
+            setTimeout(() => t.classList.remove('toast-show'), 4000);
+        }
+
+        // Copiar firma visual para Gmail / Outlook
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const content = document.getElementById('signaturePreview').innerHTML;
+            if (content.length > 10000) {
+                showToastError('Firma demasiado larga para Gmail.');
+                return;
+            }
+
+            try {
+                const tmp = document.createElement('div');
+                tmp.innerHTML = content;
+                tmp.setAttribute('contenteditable', 'true');
+                tmp.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0.01;';
+                document.body.appendChild(tmp);
+
+                const range = document.createRange();
+                range.selectNodeContents(tmp);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+
+                const ok = document.execCommand('copy');
+                sel.removeAllRanges();
+                document.body.removeChild(tmp);
+
+                if (ok) {
+                    showToast('¡Firma copiada! Pégala con Ctrl+V en Gmail o Outlook.');
+                    return;
+                }
+            } catch (err) {
+                console.warn('Fallback copy triggered');
+            }
+
+            if (navigator.clipboard && window.ClipboardItem) {
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        'text/html': new Blob([content], { type: 'text/html' }),
+                        'text/plain': new Blob([content], { type: 'text/plain' })
+                    })
+                ]).then(() => {
+                    showToast('¡Firma copiada! Pégala con Ctrl+V en tu correo.');
+                }).catch(() => {
+                    showToastError('No se pudo copiar automáticamente.');
+                });
+            }
+        });
+
+        // Copiar código HTML puro
+        document.getElementById('copyHtmlBtn').addEventListener('click', function() {
+            const content = document.getElementById('signaturePreview').innerHTML;
+            const textarea = document.createElement('textarea');
+            textarea.value = content;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast('¡Código HTML copiado al portapapeles!');
+            } catch (e) {
+                showToastError('Error al copiar el código HTML.');
+            }
+            document.body.removeChild(textarea);
+        });
+
+        // Escuchar cambios en todos los inputs
+        const allInputs = [
+            'inputName', 'inputJob', 'inputEmail', 'selectFont',
+            'inputMobile1', 'inputMobile2', 'inputAddress',
+            'inputWhatsapp', 'inputOfficePhone', 'inputLogoUrl',
+            'inputWeb', 'inputSocialHandle',
+            'socialFb', 'socialIg', 'socialTk', 'socialIn', 'socialYt'
+        ];
+        allInputs.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', updateSignature);
+        });
+
+        // Render inicial
+        updateSignature();
+    </script>
+</body>
+</html>
